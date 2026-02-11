@@ -160,11 +160,10 @@ for period_idx, period in enumerate(market_value_pivot.index):
                 width=0.9
             )
 
-            # Add cost label
+            # Add cost label (name only, no figures)
             if cost_value > 30000:
                 text_color = get_contrast_color(base_color if isinstance(base_color, str) else '#{:02x}{:02x}{:02x}'.format(int(base_color[0]*255), int(base_color[1]*255), int(base_color[2]*255)), 0.9)
-                cost_k = cost_value / 1000
-                label = f"{security}: ${cost_k:.0f}k cost"
+                label = f"{security}"
                 ax.text(x_positions[period_idx], current_bottom + cost_value/2,
                        label, ha='center', va='center', fontsize=16,
                        color=text_color, fontweight='normal', rotation=0)
@@ -193,11 +192,10 @@ for period_idx, period in enumerate(market_value_pivot.index):
                 width=0.9
             )
 
-            # Add gain label
+            # Add gain label (name only, no figures)
             if gain_value > 30000:
                 text_color = get_contrast_color('#228B22', 0.9)
-                gain_k = gain_value / 1000
-                label = f"{security}: ${gain_k:.0f}k unrlzd gain"
+                label = f"{security}"
                 ax.text(x_positions[period_idx], current_bottom + gain_value/2,
                        label, ha='center', va='center', fontsize=16,
                        color=text_color, fontweight='normal', rotation=0)
@@ -208,18 +206,14 @@ for period_idx, period in enumerate(market_value_pivot.index):
 
             current_bottom += gain_value
 
-# Add total value label at the top of each bar
-for i, total in enumerate(period_totals):
-    ax.text(x_positions[i], total + total * 0.01, f'${total:,.0f}',
-            ha='center', va='bottom', fontsize=22, fontweight='bold', color='black')
-
 # -------- 5. STYLING --------
 ax.set_title("Portfolio composition over time", fontsize=26)
-ax.set_ylabel("Value ($)", fontsize=18)
+ax.set_ylabel("")
 ax.set_xlabel("Year", fontsize=18)
 
-# Format y-axis to show dollar values
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'${x:,.0f}'))
+# Hide y-axis values
+ax.set_yticklabels([])
+ax.tick_params(axis='y', length=0)
 
 # Set x-axis labels
 ax.set_xticks(x_positions)
@@ -231,7 +225,7 @@ ax.text(x_positions[-1], -0.07, 'Current', transform=ax.get_xaxis_transform(),
 ax.tick_params(axis='y', labelsize=20)
 
 plt.tight_layout()
-plt.savefig('portfolio_analysis.png', dpi=200, bbox_inches='tight')
+plt.savefig('/Users/jairajmodak/Kevlar-Capital/portfolio_analysis.png', dpi=200, bbox_inches='tight')
 plt.show()
 
 # Print summary statistics
