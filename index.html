@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edison Fund — Fund Overview</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>O</text></svg>">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- PAGE CONTAINER ---- */
+        .page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 40px 48px;
+        }
+        @media (max-width: 640px) {
+            .page { padding: 20px 16px 32px; }
+        }
+
+        /* ---- HEADER ---- */
+        .factsheet-header {
+            border-bottom: 3px solid #1a1a1a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .factsheet-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        .factsheet-header .date {
+            font-size: 15px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        /* ---- SECTION HEADERS ---- */
+        .section-head {
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 8px;
+            margin-bottom: 0;
+            letter-spacing: 0.01em;
+        }
+
+        /* ---- TWO-COLUMN TOP ---- */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1fr 440px;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 700px) {
+            .top-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ---- KEY DATA TABLE ---- */
+        .key-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        .key-data-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+        .key-data-table td {
+            padding: 5px 8px;
+            vertical-align: top;
+        }
+        .key-data-table .kd-label {
+            color: #555;
+            font-weight: 500;
+            width: 50%;
+        }
+        .key-data-table .kd-value {
+            font-weight: 700;
+            text-align: right;
+        }
+        .key-data-table .kd-value.green {
+            color: #1a8d3f;
+        }
+
+        /* ---- INVESTMENT OBJECTIVE ---- */
+        .objective-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.65;
+        }
+        .objective-text p {
+            margin-bottom: 10px;
+        }
+        .objective-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ---- PERFORMANCE SECTION ---- */
+        .perf-section {
+            margin-bottom: 28px;
+        }
+        .perf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 0;
+        }
+        @media (max-width: 700px) {
+            .perf-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ---- SUMMARY TABLE ---- */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .summary-table th {
+            background: #f0f0f0;
+            font-weight: 700;
+            text-align: left;
+            padding: 5px 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .summary-table td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .summary-table .st-label {
+            color: #555;
+            font-weight: 500;
+        }
+        .summary-table .st-value {
+            text-align: right;
+            font-weight: 700;
+        }
+        .summary-table .st-value.green {
+            color: #1a8d3f;
+        }
+
+        /* ---- CHART ---- */
+        .chart-wrap {
+            overflow: hidden;
+        }
+        .chart-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* ---- CONTENT SECTIONS ---- */
+        .content-section {
+            margin-bottom: 28px;
+        }
+        .content-section .section-body {
+            padding-top: 12px;
+        }
+        .content-section p {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.65;
+            margin-bottom: 10px;
+        }
+        .content-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ---- SUBSECTION HEADERS ---- */
+        .subsection-head {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+            margin-top: 16px;
+        }
+        .subsection-head:first-child {
+            margin-top: 0;
+        }
+
+        /* ---- GROUP HEADERS ---- */
+        .group-head {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* ---- CRITERIA LIST ---- */
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: criteria;
+        }
+        .criteria-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.65;
+        }
+        .criteria-list li:last-child {
+            border-bottom: none;
+        }
+        .criteria-list li h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .criteria-list li h4 .criteria-num {
+            color: #888;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .criteria-list li .criteria-desc {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.65;
+            margin-bottom: 8px;
+        }
+        .trait-bullets {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 4px;
+        }
+        .trait-bullets li {
+            padding: 4px 0;
+            border-bottom: none;
+            font-size: 14px;
+        }
+        .trait-bullets li strong {
+            color: #1a1a1a;
+        }
+
+        /* ---- CALLOUT ---- */
+        .callout {
+            border-left: 3px solid #1a1a1a;
+            padding: 8px 12px;
+            background: #f7f7f7;
+            margin-top: 10px;
+        }
+        .callout p {
+            font-size: 12px;
+            font-style: italic;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* ---- FEE TABLE ---- */
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            max-width: 400px;
+        }
+        .fee-table th {
+            background: #f0f0f0;
+            font-weight: 700;
+            text-align: left;
+            padding: 5px 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .fee-table td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .fee-table .ft-label {
+            color: #555;
+            font-weight: 500;
+        }
+        .fee-table .ft-value {
+            text-align: right;
+            font-weight: 700;
+        }
+
+        /* ---- CONTACT ---- */
+        .contact-row {
+            margin-top: 12px;
+            font-size: 13px;
+        }
+        .contact-row a {
+            color: #06c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .contact-row a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---- FOOTER / DISCLAIMER ---- */
+        .disclaimer {
+            border-top: 1px solid #ddd;
+            padding-top: 16px;
+            margin-top: 32px;
+            font-size: 11px;
+            color: #888;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- HEADER -->
+        <header class="factsheet-header">
+            <h1>Edison Fund</h1>
+            <div style="font-size: 17px; color: #333; margin-top: 4px;">Concentrated deep tech growth equity fund across public &amp; private markets</div>
+            <div class="date">Fund Overview &mdash; February 2026</div>
+        </header>
+
+        <!-- TOP: OVERVIEW + KEY DATA -->
+        <div class="top-grid">
+            <div>
+                <div class="section-head">Fund Overview</div>
+                <div class="objective-text" style="padding-top: 10px;">
+                    <p>The Edison Fund is an evergreen fund that is ever-invested in 3–5 unique, founder-led, deep-tech companies at a time, which all have a significant role to play in the future we envision. We are an informal fund that manage friends and family money and invest across the public and private markets.</p>
+                </div>
+            </div>
+
+            <div>
+                <div class="section-head">Key Data</div>
+                <table class="key-data-table">
+                    <tr>
+                        <td class="kd-label">Annualized Pre-Tax XIRR</td>
+                        <td class="kd-value green">+80%</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Simple Total Return</td>
+                        <td class="kd-value green">+175%</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Years Live</td>
+                        <td class="kd-value">2.8</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Mgmt Fee</td>
+                        <td class="kd-value">None</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">No. of Positions</td>
+                        <td class="kd-value">3–5</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Total Capital Deployed</td>
+                        <td class="kd-value">$574,508</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Total Gain</td>
+                        <td class="kd-value green">+$1,005,604</td>
+                    </tr>
+                    <tr>
+                        <td class="kd-label">Current Portfolio Value</td>
+                        <td class="kd-value">$1,580,112</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE -->
+        <div class="perf-section">
+            <div class="section-head">Fund Performance</div>
+            <div class="chart-wrap" style="margin-top: 12px;">
+                <img src="portfolio_analysis.png" alt="Portfolio composition over time">
+            </div>
+        </div>
+
+        <!-- INVESTMENT PHILOSOPHY -->
+        <div class="content-section">
+            <div class="section-head">Investment Philosophy</div>
+            <div class="section-body">
+                <div class="group-head">Portfolio Philosophy</div>
+
+                <div class="subsection-head">Why prioritize deep tech companies?</div>
+                <p>We focus on companies solving the hardest technical problems because we believe they offer a uniquely attractive risk/reward profile. These companies have a built-in call option — they are best placed to capture entirely new markets as those markets are created. The difficulty of the problems they solve creates enduring competitive advantages, and the caliber of talent required to work on these problems provides meaningful downside protection. Deep tech is where we believe the best long-term risk-adjusted returns are found.</p>
+
+                <div class="subsection-head">Why invest across public and private markets?</div>
+                <p>We are loyal to investing in the best companies of our time, regardless of whether they are public or private. That said, we find that the best investment opportunities — both from a company quality and entry valuation perspective — are found in the private markets. We look to our public market portfolio as a war chest, from which we will draw upon should we come across a private market opportunity worth the liquidity risk. Having a public portfolio, along with the evergreen nature of the fund, also eliminates the pressure of needing to deploy capital in private markets if great private market opportunities are not present.</p>
+
+                <div class="subsection-head">Why concentrate into 3–5 holdings?</div>
+                <p>At any given time, we find that we have 2–3 companies we truly love. We never have 5 or 10. It makes sense, then, to only be invested in the companies we genuinely have high conviction in. We also believe that risk comes from holding substandard or overvalued companies, not from holding a smaller number of companies — concentration in exceptional businesses is not a risk to be managed, but a source of returns.</p>
+
+                <div class="subsection-head">Why hold indefinitely?</div>
+                <p>We are long-term holders. Our ideal holding period is indefinite — we want to own great companies for as long as they remain great. This allows our investments to compound tax-free and lets us benefit from the full growth trajectory of the businesses we own.</p>
+
+                <div class="group-head">Company Philosophy</div>
+
+                <div class="subsection-head">Why require founder CEOs?</div>
+                <p>We believe that a specific leadership style is necessary to produce the growth we expect from our investments. This leadership style must come from a founder CEO, as we believe founder CEOs are critical in (1) having the right sway internally to make decisions and (2) having the right incentives to stick with the company through thick and thin and ensure success — it's not just a job, it's their life's work. This is an extremely intense, top down leadership style characterized by CEOs like Jensen Huang, Elon Musk, Alex Karp, and Brian Chesky.</p>
+                <ul class="trait-bullets">
+                    <li><strong>Highly technical:</strong> These CEOs are in the weeds, solving problems alongside IC engineers or getting involved in granular product decisions, obsessing over all aspects of their product/services. We believe a hallmark of a great CEO is them being able to be involved in more details, not less.</li>
+                    <li><strong>Publicly visible:</strong> The CEO is the clear face of the company, doing an excellent job at communicating the company's mission to the world. There should be no doubt that the company is an instrument in implementing the CEO's vision.</li>
+                    <li><strong>Missionary:</strong> The company is the CEO's vehicle to solve a greater mission. Musk wants to make humanity a 'multi-planetary civilization', Palmer Lucky wants to build the 'arsenal of democracy', Alex Karp wants to 'defend western civilization'. We think this type of grand, unifying mission ensures company focus, and works wonders towards attracting and generating yield from top 1% talent.</li>
+                    <li><strong>Extremely demanding:</strong> We think the best CEOs have incredibly high standards for quality and are extremely demanding of their employees. We think this leadership style, paired with a strong mission makes the company a top target for the best talent that wants to make an impact on the world. Steve Jobs, Elon Musk, and Jensen Huang are famous for demanding the very best from their employees. For top 1% employees, we believe employee burnout comes from (1) not being passionate about what you do and (2) not seeing progress, and never from having too much work.</li>
+                </ul>
+
+                <div class="subsection-head">Why demand a 10+ year growth runway?</div>
+                <p>The company can clearly maintain 20%+ growth rates for the next decade. This often requires it to be working in highly relevant markets that will play a large role in the future we envision. Being well positioned in a megatrend like AI, space, or defence provides embedded optionality through being best placed to capitalize on new markets. This embedded optionality often leads to the company enjoying high valuation multiples for years to come.</p>
+
+                <div class="subsection-head">Why invest in top 1% talent?</div>
+                <p>People often invest in stocks when they should invest in companies, and invest in companies when they should invest in people. A company's success hinges entirely on the quality and motivation of the people that work there. The key question is: is this company attracting the very best of humanity to work there? The best investors are often early employees in great companies — by watching where top talent wants to work, we get a signal on who is truly building something special. A dense talent base also mitigates downside risk by making companies attractive acquisition targets.</p>
+
+                <div class="subsection-head">Why look for compounding moats?</div>
+                <p>As time progresses, the company's competitive advantage naturally deepens — it gets harder and harder to compete with, just like a snowball rolling down a hill. Apple's walled garden, Tesla's self-driving data, NVIDIA's CUDA lock-in. Even if competitors had unlimited funding, they would struggle to replicate the company's products and services. Snowballing can be classic marketplace effects too — Uber, Figma, AirBnB. Things becoming industry standard — more users, more data.</p>
+
+                <div class="subsection-head">Why does entry valuation matter?</div>
+                <p>The company has an attractive valuation if, in three years' time, it were to make progress as expected and the valuation were to be flat, we would want to invest 100% of the portfolio in it. Often, this means P/S multiples are still fairly low at entry and would appear ludicrous in 3 years time given the company's growth trajectory.</p>
+            </div>
+        </div>
+
+        <!-- SOURCING -->
+        <div class="content-section">
+            <div class="section-head">How We Find Investments</div>
+            <div class="section-body">
+                <div class="subsection-head">Network</div>
+                <p>We pride ourselves on a large network of tech industry professionals, based in and around the San Francisco Bay Area, that we speak with on a regular basis. This group provides us with invaluable perspectives on the latest developments in technology. We believe San Francisco lives a few years ahead of the rest of the world and having access to top talent and early adopters here allows us to get as close as we can to peering into the future.</p>
+
+                <div class="subsection-head">Data &amp; Programmatic Sourcing</div>
+                <p>We maintain curated data feeds and programmatic sourcing pipelines that systematically surface companies matching our investment criteria. This includes tracking patent filings, technical hiring patterns, government contract awards, and research publication velocity across our focus areas. These data-driven signals complement our network by identifying companies we may not encounter through personal connections alone, and by providing quantitative backing for the qualitative signals we pick up from our network.</p>
+            </div>
+        </div>
+
+        <!-- TEAM -->
+        <div class="content-section">
+            <div class="section-head">Team</div>
+            <div class="section-body">
+                <p><strong>[Name]</strong> is the founder and General Partner of Edison Fund. [He/She/They] graduated from [University] with a degree in [Field of Study]. Prior to founding Edison Fund, [Name] [describe prior experience — e.g., worked at Company X in Role Y, where they gained exposure to Z]. [Name]'s investment background spans [placeholder — e.g., X years across public and private markets, with a focus on deep tech and growth equity].</p>
+            </div>
+        </div>
+
+        <!-- SELL DISCIPLINE -->
+        <div class="content-section">
+            <div class="section-head">Sell Discipline</div>
+            <div class="section-body">
+                <p>Our ideal holding period is indefinite. Selling a position is a rare and serious decision — we would rather hold through volatility than trade in and out of names we have conviction in. That said, we are not dogmatic about holding forever, and we maintain a clear framework for when an exit is warranted.</p>
+                <ul class="trait-bullets" style="margin-top: 8px;">
+                    <li><strong>Thesis break:</strong> The original investment thesis no longer holds. This could mean the company's growth runway has meaningfully shortened, its competitive moat has stopped compounding, or it is no longer attracting top-tier talent. We re-underwrite every position regularly against our four investment criteria — if a company no longer meets them, we exit.</li>
+                    <li><strong>Leadership change:</strong> The founder CEO departs or is no longer the driving force behind the company. Our entire investment framework is built around founder-led businesses with a specific leadership style. A transition to professional management — no matter how capable — fundamentally changes the investment case.</li>
+                    <li><strong>Valuation extremes:</strong> The market assigns a valuation so stretched that even our most optimistic three-year scenario would not justify buying the stock at that price. We are comfortable holding through high multiples when growth supports them, but we will trim or exit when the price completely disconnects from any reasonable future outcome.</li>
+                    <li><strong>Better opportunity:</strong> A materially more attractive opportunity presents itself and we need to free up capital. This is particularly relevant for our public holdings, which serve as a war chest for compelling private market investments. We will not sell a great company for a marginally better one — the bar for reallocation is high.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FUND STRUCTURE & TERMS -->
+        <div class="content-section">
+            <div class="section-head">Fund Structure &amp; Terms</div>
+            <table class="key-data-table">
+                <tr>
+                    <td class="kd-label">Legal Entity</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+                <tr>
+                    <td class="kd-label">Redemption Terms</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+                <tr>
+                    <td class="kd-label">Lock-Up Period</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+                <tr>
+                    <td class="kd-label">Minimum Investment</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+                <tr>
+                    <td class="kd-label">Reporting Cadence</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+                <tr>
+                    <td class="kd-label">Auditor</td>
+                    <td class="kd-value">[placeholder]</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- FEES -->
+        <div class="content-section">
+            <div class="section-head">Fee Structure</div>
+            <div class="section-body">
+                <p>We currently do not charge any fees. In the future, we intend to charge a 2% management fee, paid entirely via fund units to the GP.</p>
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="content-section">
+            <div class="section-head">Contact</div>
+            <div class="contact-row" style="padding-top: 10px;">
+                <a href="mailto:jairaj@odincapital.co">jairaj@odincapital.co</a>
+            </div>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+            Past performance is not indicative of future results. This page is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Investments involve risk, including the possible loss of principal.
+        </div>
+
+    </div>
+</body>
+</html>
