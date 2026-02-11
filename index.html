@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kevlar Capital</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>K</text></svg>">
+    <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,7 @@
         #company-selection p, #company-selection span, #company-selection li { font-family: Georgia, 'Times New Roman', serif; font-size: 17px; }
         #fund-philosophy h4, #company-selection h4 { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif; }
         .nav-link.active { opacity: 1 !important; text-decoration: underline; text-underline-offset: 4px; }
+        .nav-logo-img.invert { filter: brightness(0) invert(1); }
     </style>
 </head>
 <body class="bg-white text-kevlar-800 font-sans antialiased">
@@ -47,7 +48,7 @@
     <!-- NAV -->
     <nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-300">
         <div class="max-w-2xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="#" class="nav-logo text-xl font-bold tracking-tight font-mono transition-colors">Kevlar Capital</a>
+            <a href="#" class="nav-logo flex items-center gap-2 text-xl font-bold tracking-tight font-mono transition-colors"><img src="logo.png" alt="Kevlar Capital" class="h-6 w-6 nav-logo-img">Kevlar Capital</a>
             <div class="hidden md:flex items-center gap-8 text-sm font-medium">
                 <a href="#fund" class="nav-link transition-colors">Fund</a>
                 <a href="#fund-philosophy" class="nav-link transition-colors">Philosophy</a>
@@ -289,6 +290,7 @@
         const nav = document.getElementById('main-nav');
         const hero = document.querySelector('header');
         const logo = nav.querySelector('.nav-logo');
+        const logoImg = nav.querySelector('.nav-logo-img');
         const links = nav.querySelectorAll('.nav-link');
         const menuBtn = document.getElementById('mobile-menu-btn');
 
@@ -298,6 +300,7 @@
                 nav.classList.add('bg-white/80', 'nav-blur', 'border-b', 'border-gray-200/60');
                 logo.classList.add('text-kevlar-800');
                 logo.classList.remove('text-white');
+                logoImg.classList.remove('invert');
                 menuBtn.classList.add('text-gray-500');
                 menuBtn.classList.remove('text-white');
                 links.forEach(el => {
@@ -308,6 +311,7 @@
                 nav.classList.remove('bg-white/80', 'nav-blur', 'border-b', 'border-gray-200/60');
                 logo.classList.remove('text-kevlar-800');
                 logo.classList.add('text-white');
+                logoImg.classList.add('invert');
                 menuBtn.classList.remove('text-gray-500');
                 menuBtn.classList.add('text-white');
                 links.forEach(el => {
